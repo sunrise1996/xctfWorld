@@ -1,0 +1,8 @@
+read将内容写在dfdf30，ret时esp为dfdfbc
+我的做法：0x8c内容（注意，其中包含着EBP）+返回地址（调用system处）+system的参数
+
+答案做法：0x8c内容+sytem.plt位置（jmp system,push 返回地址）+被push的地址+system的参数
+
+
+
+xctf{cdd2d5e017ba7efaf839f7a12ae42835}

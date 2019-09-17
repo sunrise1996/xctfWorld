@@ -1,0 +1,30 @@
+Input your name: 
+$
+
+Welcome to my black weapon storage!
+Now you can use it to do some evil things
+1. create exploit
+2. delete exploit
+3. edit exploit
+4. show exploit
+5. exit
+
+1、
+qword_6020C0 = (__int64)malloc(0x14uLL)
+
+6020c0 （堆address）五个size
+
+6020e0
+address 1
+……………………
+
+2、
+double free
+
+思路：
+1、delete(-2)可以释放存放size的堆块
+2、控制size，即可heapoverflow
+3、heapoverflow伪造堆块以unlink
+4、完全控制table，填写PUTS,FREE,ATOI
+5、edit先改写free为PLTputs以leak（不能用sendline）
+6、改写atoi为system

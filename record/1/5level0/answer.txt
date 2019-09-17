@@ -1,0 +1,3 @@
+call read时，rsp=dd10，从dd10开始写
+ret之前，rsp=dd98，需要覆盖0x88个字节，之后填上想去的地方
+居然存在调用system("/bin/sh")的地方，跳过去就行了。

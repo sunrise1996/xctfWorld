@@ -1,0 +1,11 @@
+  puts("1. Stack Bufferoverflow Bug ");
+  puts("2. Format String Bug ");
+  return puts("3. Exit the battle ");
+
+ROPgadget --binary rop  --only 'pop|ret' | grep 'eax'
+
+0x0000000000400ab3 : pop rdi ; ret
+
+栈溢出：canary不会变，泄露之，返回。
+
+格式化字符串：formatStringExploiter修改got

