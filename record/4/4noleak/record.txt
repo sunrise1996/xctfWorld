@@ -1,0 +1,35 @@
+Wellcome To the Heap World
+1. Create
+2. Delete
+3. Update
+4. Exit
+Your choice :
+
+1、create
+size: ...
+table在601040
+10个，满时会自己释放
+
+2、update
+v0<=9
+存在，size可控，溢出
+
+3、delete
+释放，空悬指针
+
+思路：
+1、fastbin attack， 堆分配到bss，
+2、bss写shellcode
+3、fini改成shellcode
+bss段不能分配。
+
+1、弄个大的。
+2、unlink来到大的前面
+3、把大的改到特殊位置
+大的和libc只知道相对位置，不知道绝对位置。
+
+1、unlink
+2、任意地址写
+3、改got到shellcode
+
+unsortdbin attack
