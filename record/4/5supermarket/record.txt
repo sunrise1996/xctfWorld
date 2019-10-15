@@ -1,0 +1,27 @@
+1. add a commodity
+2. del a commodity
+3. list commodities
+4. Change the price of a commodity
+5. Change the description of a commodity
+6. exit
+your choice>> 
+
+1、add
+T0804b080->	name 		4x4
+		price 		1x4
+		descrip_size 	1x4	0-256
+		desaddr		1x4
+
+2、del
+price = 0
+free\free
+T = 0
+
+3、list
+
+4、change
+
+5、UAF is here
+
+step：
+1、UAF泄露堆

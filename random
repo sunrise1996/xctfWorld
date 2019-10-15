@@ -1,0 +1,11 @@
+echo 0 > /proc/sys/kernel/randomize_va_space
+sudo sysctl -w kernel.randomize_va_space=0
+
+# -*- coding: utf-8 -*-
+from pwn import *
+
+#context(log_level='debug')
+
+p = process("./note3")
+elf = ELF("./note3")
+libc = ELF("/lib/x86_64-linux-gnu/libc.so.6")
